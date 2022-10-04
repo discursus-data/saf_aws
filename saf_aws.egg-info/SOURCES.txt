@@ -1,0 +1,9 @@
+LICENSE
+README.md
+setup.py
+saf_aws/__init__.py
+saf_aws/aws_resource.py
+saf_aws.egg-info/PKG-INFO
+saf_aws.egg-info/SOURCES.txt
+saf_aws.egg-info/dependency_links.txt
+saf_aws.egg-info/top_level.txt

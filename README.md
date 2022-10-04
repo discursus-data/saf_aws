@@ -6,7 +6,17 @@ It is part of the [Social Analytics Framework](https://github.com/lantrns-analyt
 &nbsp;
 
 
-# Library
+# Configurations
+This library uses the `boto3` package to interact with AWS, which requires your credentials. Those should be defined in the following file, starting at the root (~) of your project: `~/.aws/credentials`
+
+Example:
+
+```
+[default]
+aws_access_key_id="{{ env_var('AWS_ACCESS_KEY_ID') }}"
+aws_secret_access_key="{{ env_var('AWS_SECRET_ACCESS_KEY') }}"
+```
+
 
 # Methods
 ## aws_resource.initiate_aws_resource
@@ -20,18 +30,35 @@ Example:
 my_aws_resource = aws_resource.initiate_aws_resource()
 ```
 
-## aws_resource.get_url_to_latest_asset
-Fetches the latest url for a specific aws asset.
+## aws_resource.s3_put
+Adds an object to a bucket.
 
 Parameters:
-- aws_asset: Which aws asset to mine. Values can either be `events`, `mentions` or `gkg`
+- df_data_asset: Dataframe to add
+- bucket_name: Destination bucket where to add dataframe
+- file_path: Path of dataframe to be added in bucket
 
 Returns:
-- latest_asset_url: URL of latest asset
+- df_data_asset: Dataframe that's been added
 
 Example:
 ```
-latest_asset_url = context.resources.aws_resource.get_url_to_latest_asset(aws_asset)
+latest_asset_url = context.resources.aws_resource.s3_put(df_data_asset, bucket_name, file_path)
+```
+
+## aws_resource.s3_get
+Retrieves objects from Amazon S3.
+
+Parameters:
+- bucket_name: Bucket where to retrieve dataframe
+- file_path: Path of dataframe to be retrieved in bucket
+
+Returns:
+- df_data_asset: Dataframe that's been retrieved
+
+Example:
+```
+latest_asset_url = context.resources.aws_resource.s3_put(df_data_asset, bucket_name, file_path)
 ```
 
 &nbsp;
