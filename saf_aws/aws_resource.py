@@ -6,7 +6,6 @@ from io import StringIO
 import pandas as pd
 
 
-
 class AWSResource:
     # AWS methods
     ######################
@@ -21,15 +20,20 @@ class AWSResource:
         return df_data_asset
     
 
-    def s3_get(self, bucket_name, file_path):
+    def s3_get(self, bucket_name, file_path, object_type = 'csv', dataframe_conversion = True):
         # Retrieves objects from Amazon S3.
 
         s3 = boto3.resource('s3')
         obj = s3.Object(bucket_name, file_path)
 
-        df_data_asset = pd.read_csv(StringIO(obj.get()['Body'].read().decode('utf-8')))
+        if object_type == 'csv' and dataframe_conversion:
+            s3_asset = pd.read_csv(StringIO(obj.get()['Body'].read().decode('utf-8')))
+        elif object_type == 'csv' and not dataframe_conversion:
+            s3_asset = StringIO(obj.get()['Body'].read().decode('utf-8'))
+        else:
+            s3_asset = StringIO(obj.get()['Body'].read().decode('utf-8'))
 
-        return df_data_asset
+        return s3_asset
 
 
 @resource(
