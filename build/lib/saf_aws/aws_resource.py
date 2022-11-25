@@ -4,6 +4,7 @@ import boto3
 from urllib.request import urlopen, urlretrieve
 from io import StringIO
 import pandas as pd
+import io
 
 
 class AWSResource:
@@ -31,7 +32,7 @@ class AWSResource:
         elif object_type == 'csv' and not dataframe_conversion:
             s3_asset = StringIO(obj.get()['Body'].read().decode('utf-8'))
         else:
-            s3_asset = StringIO(obj.get()['Body'].read().decode('utf-8'))
+            s3_asset = obj.get().get('Body').read()
 
         return s3_asset
 
