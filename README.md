@@ -52,6 +52,8 @@ Retrieves objects from Amazon S3.
 Parameters:
 - bucket_name: Bucket where to retrieve dataframe
 - file_path: Path of dataframe to be retrieved in bucket
+- object_type: Specify object type to be fetched on s3. Accepted values: `csv` (default), `png`
+- dataframe_conversion: For `csv` object types, convert downloaded object to a Pandas dataframe.
 
 Returns:
 - df_data_asset: Dataframe that's been retrieved
